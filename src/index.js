@@ -30,3 +30,11 @@ app.get('/talker', async(req, res) => {
   const talks = await readFile();
   return res.status(200).json(talks)
 })
+
+app.get('/talker/:id', async(req, res) => {
+  const talk = await readFile();
+  const talkFound = talk.find((talkId) => talkId.id === Number(req.params.id))
+  if(talkFound){return res.status(200).json(talkFound)}
+  return res.status(404).json({"message": "Pessoa palestrante não encontrada"})
+  
+})

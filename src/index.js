@@ -82,8 +82,12 @@ const passwordLength = (req, res, next) => {
 
 app.post('/login', emailValidation, emailFormat,
   passwordValidation, passwordLength, async (req, res) => {
-  console.log(req);
-  const token = Math.floor(Math.random() * 10000000000000000).toString();
-
-  return res.status(200).json({ token });
+  const token = Math.floor(
+    (Math.random() * (9999999999999999 - 1000000000000000) + 1000000000000000),
+)
+    .toString();
+  console.log(token);
+  return res.status(200).json({
+    token,
+  });
 });

@@ -58,9 +58,9 @@ app.post('/login', emailValidation, emailFormat,
 });
 
 app.post('/talker', tokenValidation, nameValidation,
-ageValidation,talkValidation, rateValidation, async (req, res) => {
+ageValidation, talkValidation, rateValidation, async (req, res) => {
   const talks = await readFile();
-  const talksSoma = { id: talks.length + 1, ...req.body }
+  const talksSoma = { id: talks.length + 1, ...req.body };
   talks.push(talksSoma);
   await writeFile(talks);
 

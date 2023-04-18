@@ -14,4 +14,4 @@ return res.status(400)
 
 module.exports = {
   rateValidation,
-}
+};

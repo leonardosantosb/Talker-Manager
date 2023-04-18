@@ -17,5 +17,5 @@ if (!regexData.test(watchedAt)) {
 };
 
 module.exports = {
-  talkValidation
-}
+  talkValidation,
+};

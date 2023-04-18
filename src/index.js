@@ -68,26 +68,23 @@ ageValidation, talkValidation, rateValidation, async (req, res) => {
   });
 
 app.put('/talker/:id', tokenValidation, nameValidation,
-  ageValidation, talkValidation, rateValidation, async(req, res) => {
-  const talks = await readFile();
-  const { id } = req.params;
+  ageValidation, talkValidation, rateValidation, async (req, res) => {
+  const talks = await readFile(); const { id } = req.params;
   const { name, age, talk } = req.body;
-  const findId = talks.find((talk) => talk.id === Number(id))
+  const findId = talks.find((talkId) => talkId.id === Number(id));
   let alteredTalker;
-  for (let i = 0; i < talks.length; i++) {
+  for (let i = 0; i < talks.length; i += 1) {
     const talker = talks[i];
-    if(talker.id === Number(id)){
+    if (talker.id === Number(id)) {
       talker.name = name;
       talker.age = age;
       talker.talk = talk;
     }
     alteredTalker = talker;
   }
-  if(!findId){
-    return res.status(404).json({
-      "message": "Pessoa palestrante não encontrada"
-    })
+  if (!findId) {
+    return res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
   }
-  await writeFile(talks)
-  return res.status(200).json(alteredTalker)
-})
+  await writeFile(talks);
+  return res.status(200).json(alteredTalker);
+});

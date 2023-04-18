@@ -88,3 +88,12 @@ app.put('/talker/:id', tokenValidation, nameValidation,
   await writeFile(talks);
   return res.status(200).json(alteredTalker);
 });
+
+app.delete('/talker/:id', tokenValidation, async (req, res) => {
+  const talks = await readFile();
+  const { id } = req.params;
+  const arrayPosition = talks.findIndex((talk) => talk.id === Number(id));
+  talks.splice(arrayPosition, 1);
+  await writeFile(talks);
+  return res.status(204).json();
+});

@@ -32,9 +32,16 @@ app.get('/talker', async(req, res) => {
 })
 
 app.get('/talker/:id', async(req, res) => {
-  const talk = await readFile();
-  const talkFound = talk.find((talkId) => talkId.id === Number(req.params.id))
+  const talks = await readFile();
+  const talkFound = talks.find((talkId) => talkId.id === Number(req.params.id))
   if(talkFound){return res.status(200).json(talkFound)}
   return res.status(404).json({"message": "Pessoa palestrante não encontrada"})
+})
+
+app.post('/login', async(req, res) => {
+  console.log(req);
+  const token = Math.floor(Math.random() * 10000000000000000).toString();
+
+  return res.status(200).json({"token":token});
   
 })

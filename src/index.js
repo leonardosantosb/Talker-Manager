@@ -66,3 +66,28 @@ ageValidation, talkValidation, rateValidation, async (req, res) => {
 
   return res.status(201).json(talksSoma);
   });
+
+app.put('/talker/:id', tokenValidation, nameValidation,
+  ageValidation, talkValidation, rateValidation, async(req, res) => {
+  const talks = await readFile();
+  const { id } = req.params;
+  const { name, age, talk } = req.body;
+  const findId = talks.find((talk) => talk.id === Number(id))
+  let alteredTalker;
+  for (let i = 0; i < talks.length; i++) {
+    const talker = talks[i];
+    if(talker.id === Number(id)){
+      talker.name = name;
+      talker.age = age;
+      talker.talk = talk;
+    }
+    alteredTalker = talker;
+  }
+  if(!findId){
+    return res.status(404).json({
+      "message": "Pessoa palestrante não encontrada"
+    })
+  }
+  await writeFile(talks)
+  return res.status(200).json(alteredTalker)
+})
